@@ -1,0 +1,18 @@
+﻿@model IEnumerable<COVID_19.Models.Country>
+
+@{
+    ViewData["Title"] = "Country";
+}
+    <div>
+        @foreach (var country in Model)
+        {
+            <div>
+                <h2>@country.CountryName</h2>
+                <h2>@country.CountryCode</h2>
+                <h3>@country.Capital</h3>
+                <h4>@country.Population</h4>
+                <h5>@country.Density</h5>
+                <h6>@country.HumanDevelopmentIndex_HDI</h6>
+            </div>
+        }
+    </div>
