@@ -55,7 +55,6 @@ namespace COVID_19
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
