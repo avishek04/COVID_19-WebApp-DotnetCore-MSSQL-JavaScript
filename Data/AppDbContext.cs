@@ -17,6 +17,7 @@ namespace COVID_19.Data
 
         }
 
+        public DbSet<CovidCountryData> CovidCountryData { get; set; }
         public DbSet<Country> Country { get; set; }
         public DbSet<SurveyQuestions> SurveyQuestions { get; set; }
         public DbSet<SurveyUserData> SurveyUserData { get; set; }

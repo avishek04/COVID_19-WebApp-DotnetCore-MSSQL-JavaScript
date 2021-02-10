@@ -13,6 +13,7 @@ using COVID_19.Data;
 using Microsoft.EntityFrameworkCore;
 using COVID_19.Controllers;
 using COVID_19.Data.Repository;
+using COVID_19.CoreApiClient;
 
 namespace COVID_19
 {
@@ -35,10 +36,12 @@ namespace COVID_19
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
-
+            services.AddHttpClient();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ISurveyQuestionsRepository, SurveyQuestionsRepository>();
             services.AddScoped<ISurveyUserDataRepository, SurveyUserDataRepository>();
+            services.AddScoped<ICovidDataRepository, CovidDataRepository>();
+            services.AddScoped<CovidDataClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

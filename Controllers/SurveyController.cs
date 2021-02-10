@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 namespace COVID_19.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class SurveyController : Controller
 	{
 		public readonly ISurveyQuestionsRepository _surveyQuestionsRepository;
