@@ -25,6 +25,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
     <Folder Include="CoreApiClient\" />
-    <Folder Include="CoreApiClient\Mappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="CoreApiClient\Mappers\CovidCountryDataMap.cs" />
   </ItemGroup>
 </Project>
