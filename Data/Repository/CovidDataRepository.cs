@@ -9,9 +9,9 @@ namespace COVID_19.Data.Repository
     public class CovidDataRepository : ICovidDataRepository
     {
         public AppDbContext _appDbContext;
-        public CovidDataClient _covidDataClient;
+        public ICovidDataClient _covidDataClient;
 
-        public CovidDataRepository(AppDbContext appDbContext, CovidDataClient covidDataClient)
+        public CovidDataRepository(AppDbContext appDbContext, ICovidDataClient covidDataClient)
         {
             _appDbContext = appDbContext;
             _covidDataClient = covidDataClient;

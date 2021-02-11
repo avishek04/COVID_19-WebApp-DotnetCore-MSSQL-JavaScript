@@ -13,7 +13,7 @@ using COVID_19.Data;
 
 namespace COVID_19.CoreApiClient
 {
-    public class CovidDataClient
+    public class CovidDataClient : ICovidDataClient
     {
         private readonly IHttpClientFactory _clientFactory;
 

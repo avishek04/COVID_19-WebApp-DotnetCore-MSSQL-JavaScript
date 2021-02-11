@@ -33,15 +33,16 @@ namespace COVID_19
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+            services.AddControllers();
             services.AddHttpClient();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ISurveyQuestionsRepository, SurveyQuestionsRepository>();
             services.AddScoped<ISurveyUserDataRepository, SurveyUserDataRepository>();
             services.AddScoped<ICovidDataRepository, CovidDataRepository>();
-            services.AddScoped<CovidDataClient>();
+            services.AddScoped<ICovidDataClient, CovidDataClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,12 +66,12 @@ namespace COVID_19
 
             app.UseAuthorization();
 
-            /*app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });*/
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
 
             app.UseEndpoints(endpoints =>
             {
