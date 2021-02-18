@@ -26,5 +26,6 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="CoreApiClient\" />
     <Folder Include="CoreApiClient\Mappers\" />
+    <Folder Include="Views\Country\" />
   </ItemGroup>
 </Project>

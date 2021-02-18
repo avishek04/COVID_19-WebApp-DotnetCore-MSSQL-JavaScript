@@ -21,7 +21,7 @@ namespace COVID_19.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CovidCountryData>> Index()
         {
-            var allCountryData = _covidDataRepository.AllCountryData.ToList();
+            var allCountryData = _covidDataRepository.GetAllCovidData().ToList();
             return Ok(allCountryData);
         }
     }

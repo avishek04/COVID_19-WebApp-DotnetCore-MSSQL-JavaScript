@@ -25,17 +25,18 @@ namespace COVID_19.CoreApiClient
             _appDbContext = appDbContext;
         }
 
-        public async void UpdateLatestCovidCountryDataAsync()
+        public async Task<List<CovidCountryData>> FetchCovidCountryDataAsync(string date)
         {
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get,
-            "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/01-01-2021.csv");
+                var path = $"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/{date}.csv";
+                var request = new HttpRequestMessage(HttpMethod.Get, path);
                 request.Headers.Add("Accept", "*/*");
                 //request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
+                List<CovidCountryData> covidCountryDataCsv;
                 if (response.IsSuccessStatusCode)
                 {
                     var responseStream = await response.Content.ReadAsStreamAsync();
@@ -43,13 +44,15 @@ namespace COVID_19.CoreApiClient
                     using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
                         csv.Context.RegisterClassMap<CovidCountryDataMap>();
-                        var covidCountryDataCsv = csv.GetRecords<CovidCountryData>();
-                        var covidCountryDataDb = _appDbContext.CovidCountryData;
-                        var covidDataToAdd = covidCountryDataCsv.Where(x => covidCountryDataDb.All(y => x.Last_Update != y.Last_Update && x.Combined_Key != y.Combined_Key)).ToList();
-                        _appDbContext.CovidCountryData.AddRange(covidDataToAdd);
-                        _appDbContext.SaveChanges();
+                        covidCountryDataCsv = csv.GetRecords<CovidCountryData>().ToList();
+                        return covidCountryDataCsv;
+                        //var covidCountryDataDb = _appDbContext.CovidCountryData;
+                        //var covidDataToAdd = covidCountryDataCsv.Where(x => covidCountryDataDb.All(y => x.Last_Update != y.Last_Update && x.Combined_Key != y.Combined_Key)).ToList();
+                        //_appDbContext.CovidCountryData.AddRange(covidDataToAdd);
+                        //_appDbContext.SaveChanges();
                     }
                 }
+                return null;
             }
             catch (UnauthorizedAccessException e)
             {

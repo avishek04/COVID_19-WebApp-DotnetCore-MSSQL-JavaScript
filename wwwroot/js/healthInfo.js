@@ -7,5 +7,5 @@ function getItems() {
 
 function displayData(covidData) {
     const body = document.getElementsByTagName("body");
-    document.body.innerHTML = covidData;
+    body.innerHTML = covidData;
 }

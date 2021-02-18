@@ -12,6 +12,10 @@ namespace COVID_19.Data
 {
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
+        public AppDbContext()
+        {
+
+        }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
@@ -25,9 +29,9 @@ namespace COVID_19.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Country>()
-                .Property(c => c.Level)
-                .HasConversion<int>();
+            //modelBuilder.Entity<Country>()
+            //    .Property(c => c.Level)
+            //    .HasConversion<int>();
 
             modelBuilder.Entity<SurveyQuestions>()
                 .Property(c => c.SurveyQuestionType)
