@@ -6,7 +6,7 @@ using COVID_19.Models;
 
 namespace COVID_19.Data.Repository
 {
-    public interface ISurveyUserDataRepository
+    /*public interface ISurveyUserDataRepository
     {
         IEnumerable<SurveyUserData> AllSurveyData { get; }
 
@@ -15,5 +15,5 @@ namespace COVID_19.Data.Repository
         SurveyUserData GetSurveyDataByUserId(int userId);
 
         void AddSurveyData(SurveyUserData userData);
-    }
+    }*/
 }

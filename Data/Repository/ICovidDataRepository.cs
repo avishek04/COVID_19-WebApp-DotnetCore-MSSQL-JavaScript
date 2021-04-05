@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using COVID_19.Models;
+using COVID_19.Models.ViewModels;
 
 namespace COVID_19.Data.Repository
 {
     public interface ICovidDataRepository
     {
-        public IEnumerable<CovidCountryData> AllCountryCovidData { get; }
-        IEnumerable<CovidCountryData> GetAllCovidData();
-        IEnumerable<DateTime> GetAllDates(DateTime startingDate, DateTime endingDate);
-        void UpdateCovidCountryDataAsync(List<CovidCountryData> countryCovidData);
+        IEnumerable<CovidData> AllCountryCovidData { get; }
+        List<DateTime> GetAllDates(DateTime startDate, DateTime endDate);
+        IEnumerable<CovidDataViewModel> AllCovidData();
     }
 }

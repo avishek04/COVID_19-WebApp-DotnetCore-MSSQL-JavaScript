@@ -10,6 +10,6 @@ namespace COVID_19.Data.Repository
     {
         IEnumerable<Country> AllCountries { get; }
 
-        Country GetCountryById(int countryId);
+        List<Country> AllCountryData();
     }
 }

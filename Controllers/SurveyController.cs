@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace COVID_19.Controllers
 {
-	[ApiController]
+	/*[ApiController]
 	[Route("api/[controller]")]
 	public class SurveyController : Controller
 	{
@@ -21,10 +21,10 @@ namespace COVID_19.Controllers
 			_surveyQuestionsRepository = surveyQuestionsRepository;
 			_surveyUserDataRepository = surveyUserDataRepository;
 		}
-		/*public IActionResult Index()
+		public IActionResult Index()
 		{
 			return View();
-		}*/
+		}
 
 		[HttpGet]
 		[ProducesResponseType(StatusCodes.Status200OK)]
@@ -56,5 +56,5 @@ namespace COVID_19.Controllers
 			_surveyUserDataRepository.AddSurveyData(wfhUserData);
 			return RedirectToAction(nameof(Index));
 		}
-	}
+	}*/
 }

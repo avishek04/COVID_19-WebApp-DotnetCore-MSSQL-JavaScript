@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,4 +33,4 @@ namespace COVID_19.Models
         //Have you been diagnosed with Covid-19 while away from work?
         //Do you have any additional concerns about returning to work?
     }
-}
+}*/

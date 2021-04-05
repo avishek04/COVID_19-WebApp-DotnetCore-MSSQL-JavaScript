@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using COVID_19.Data;
 using Microsoft.EntityFrameworkCore;
-using COVID_19.Controllers;
 using COVID_19.Data.Repository;
 using COVID_19.CoreApiClient;
 
@@ -35,12 +28,10 @@ namespace COVID_19
         {
             //services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
+                    options.UseNpgsql(Configuration.GetConnectionString("AppDbContext")));
             services.AddControllers();
             services.AddHttpClient();
             services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddScoped<ISurveyQuestionsRepository, SurveyQuestionsRepository>();
-            services.AddScoped<ISurveyUserDataRepository, SurveyUserDataRepository>();
             services.AddScoped<ICovidDataRepository, CovidDataRepository>();
             services.AddScoped<ICovidDataClient, CovidDataClient>();
         }
@@ -58,21 +49,11 @@ namespace COVID_19
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
+            app.UseHttpsRedirection();
             app.UseRouting();
-
-            app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Index}/{id?}");
-            //});
-
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

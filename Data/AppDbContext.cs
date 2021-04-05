@@ -21,33 +21,23 @@ namespace COVID_19.Data
 
         }
 
-        public DbSet<CovidCountryData> CovidCountryData { get; set; }
-        public DbSet<Country> Country { get; set; }
-        public DbSet<SurveyQuestions> SurveyQuestions { get; set; }
-        public DbSet<SurveyUserData> SurveyUserData { get; set; }
-        public DbSet<UserMaster> UserMaster { get; set; }
+        public DbSet<CovidData> covidcountrydata { get; set; }
+        public DbSet<Country> country { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Country>()
-            //    .Property(c => c.Level)
+            //modelBuilder.Entity<SurveyQuestions>()
+            //    .Property(c => c.SurveyQuestionType)
             //    .HasConversion<int>();
 
-            modelBuilder.Entity<SurveyQuestions>()
-                .Property(c => c.SurveyQuestionType)
-                .HasConversion<int>();
+            //modelBuilder.Entity<SurveyUserData>()
+            //    .Property(c => c.SurveyQuestionsType)
+            //    .HasConversion<int>();
 
-            //modelBuilder.Entity<DisplayFormatAttribute>()
-                //.HasNoKey();
-
-            modelBuilder.Entity<SurveyUserData>()
-                .Property(c => c.SurveyQuestionsType)
-                .HasConversion<int>();
-
-            modelBuilder.Entity<SurveyUserData>()
-                .HasOne<UserMaster>()
-                .WithMany()
-                .HasForeignKey(s => s.UserId);
+            //modelBuilder.Entity<SurveyUserData>()
+            //    .HasOne<UserMaster>()
+            //    .WithMany()
+            //    .HasForeignKey(s => s.UserId);
 
             base.OnModelCreating(modelBuilder);
 

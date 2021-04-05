@@ -73,7 +73,7 @@ header > h1 {
     flex-wrap: wrap;
 }
 
-.card {
+.countryCard, .worldCard {
     margin: 12px;
 }
 

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace COVID_19.Data.Repository
 {
-    public class SurveyQuestionsRepository : ISurveyQuestionsRepository
+    /*public class SurveyQuestionsRepository : ISurveyQuestionsRepository
     {
         public AppDbContext _appDbContext;
 
@@ -38,5 +38,5 @@ namespace COVID_19.Data.Repository
                 return _appDbContext.SurveyQuestions.Where(s => s.SurveyQuestionType == SurveyQuestions.SurveyType.Social);
             }
         }
-    }
+    }*/
 }

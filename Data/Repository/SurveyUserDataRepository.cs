@@ -7,7 +7,7 @@ using COVID_19.Data;
 
 namespace COVID_19.Data.Repository
 {
-    public class SurveyUserDataRepository : ISurveyUserDataRepository
+    /*public class SurveyUserDataRepository : ISurveyUserDataRepository
     {
         public AppDbContext _appDbContext;
 
@@ -43,5 +43,5 @@ namespace COVID_19.Data.Repository
             _appDbContext.SurveyUserData.Add(userData);
             _appDbContext.SaveChanges();
         }
-    }
+    }*/
 }

@@ -1,25 +1,47 @@
-﻿using COVID_19.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using CsvHelper.Configuration;
+using CsvHelper.Configuration.Attributes;
 
 namespace COVID_19.CoreApiClient.Mappers
 {
-    public class CovidCountryDataMap : ClassMap<CovidCountryData>
+    public class CovidDataMap : ClassMap<CovidDataModel>
     {
-        public CovidCountryDataMap()
+        public CovidDataMap()
         {
-            //checking in again
-            Map(m => m.Province_State).Name("Province_State").Optional();
-            Map(m => m.Country_Region).Name("Country_Region").Optional();
-            Map(m => m.Report_Date).Name("Last_Update").Optional();
-            Map(m => m.Latitude).Name("Lat").Optional();
-            Map(m => m.Longitude).Name("Long_").Optional();
-            Map(m => m.ConfirmedCases).Name("Confirmed");
-            Map(m => m.Deaths).Name("Deaths");
-            Map(m => m.Recovered).Name("Recovered");
-            Map(m => m.ActiveCases).Name("Active").Optional();
-            Map(m => m.Combined_Key).Name("Combined_Key").Optional();
-            Map(m => m.Incident_Rate).Name("Incident_Rate").Optional();
-            //Map(m => m.Case_Fatality_Ratio).Name("Case_Fatality_Ratio");
+            Map(m => m.CountryRegionJH).Name("Country_Region").Optional();
+            Map(m => m.ConfirmedCasesJH).Name("Confirmed");
+            Map(m => m.DeathCasesJH).Name("Deaths");
+            Map(m => m.RecoveredJH).Name("Recovered");
+            Map(m => m.ActiveCasesJH).Name("Active").Optional();
         }
+    }
+
+    public class CovidOldDataMap : ClassMap<CovidDataModel>
+    {
+        public CovidOldDataMap()
+        {
+            Map(m => m.CountryRegionJH).Name("Country/Region").Optional();
+            Map(m => m.ConfirmedCasesJH).Name("Confirmed");
+            Map(m => m.DeathCasesJH).Name("Deaths");
+            Map(m => m.RecoveredJH).Name("Recovered");
+            //Map(m => m.ActiveCasesJH).Name("Active").Optional();
+        }
+    }
+
+    public class CovidDataModel
+    {
+        public string CountryRegionJH { get; set; }
+
+        [Column(TypeName = "decimal(20, 5)")]
+        public decimal? ConfirmedCasesJH { get; set; }
+
+        [Column(TypeName = "decimal(20,5)")]
+        public decimal? DeathCasesJH { get; set; }
+
+        [Column(TypeName = "decimal(20,5)")]
+        public decimal? RecoveredJH { get; set; }
+
+        [Column(TypeName = "decimal(20,5)")]
+        public decimal? ActiveCasesJH { get; set; }
     }
 }
