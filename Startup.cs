@@ -26,14 +26,15 @@ namespace COVID_19
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("AppDbContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             services.AddControllers();
             services.AddHttpClient();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ICovidDataRepository, CovidDataRepository>();
+            services.AddScoped<IInformationRepository, InformationRepository>();
             services.AddScoped<ICovidDataClient, CovidDataClient>();
+            services.AddScoped<INewsAPIClient, NewsAPIClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,14 +47,13 @@ namespace COVID_19
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

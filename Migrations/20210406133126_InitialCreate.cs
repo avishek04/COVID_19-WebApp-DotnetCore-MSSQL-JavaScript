@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace COVID_19.Migrations
 {
@@ -8,28 +7,12 @@ namespace COVID_19.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "covidcountrydata",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    iso3 = table.Column<string>(nullable: true),
-                    country_name = table.Column<string>(nullable: true),
-                    iso2 = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Country", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CovidCountryData",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     country_id = table.Column<int>(nullable: false),
                     report_date = table.Column<DateTime>(nullable: false),
                     db_update_date = table.Column<DateTime>(nullable: false),
@@ -40,18 +23,14 @@ namespace COVID_19.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CovidCountryData", x => x.id);
+                    table.PrimaryKey("PK_covidcountrydata", x => x.id);
                 });
 
         }
-
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Country");
-
-            migrationBuilder.DropTable(
-                name: "CovidCountryData");
+          migrationBuilder.DropTable(
+                name: "covidcountrydata");
         }
     }
 }

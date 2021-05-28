@@ -12,7 +12,7 @@ namespace COVID_19.CoreApiClient.Mappers
             Map(m => m.ConfirmedCasesJH).Name("Confirmed");
             Map(m => m.DeathCasesJH).Name("Deaths");
             Map(m => m.RecoveredJH).Name("Recovered");
-            Map(m => m.ActiveCasesJH).Name("Active").Optional();
+            Map(m => m.ActiveCasesJH).Name("Active");
         }
     }
 

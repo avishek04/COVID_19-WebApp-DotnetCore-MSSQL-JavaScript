@@ -1,16 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="This website provide data about the current happenings related to covid and also the stats from all over the world. You can also take a survey on the current scenario and view public's general opinion in the site" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Covid, Corona, Virus">
+    <meta name="description" content="This website provide data about the current happenings related to covid and also the stats from all over the world." />
+    <meta name="author" content="Avishek Choudhury">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="images/favicon.ico" rel="icon" />
-    <title>COVID-19 Stats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>COVID-19 Statistics</title>
 </head>
 <body>
     <header>
@@ -44,126 +49,33 @@
                     Cases
                 </div>
                 <hr />
+                <div id="chart_div_cases"></div>
             </div>
             <div class="chartDeaths">
                 <div class="chartDeathsHeading">
                     Deaths
                 </div>
                 <hr />
+                <div id="chart_div_deaths"></div>
             </div>
         </div>
     </div>
     <div class="casesOverview">
         <div class="casesHeading">
-            Cases Overview >
+            Cases Overview
         </div>
         <hr />
         <div class="locationOverview">
-            <div id="location" style="font-size: medium">Location..</div><br />
-            <div id="locationStats">
-                <div class="statsDiv">
-                    <div class="statsHeader">Total Cases</div>
-                    <div class="totalCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(1 day)</div>
-                    <div class="perDayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(14 days)</div>
-                    <div class="per14DayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Cases per 1 million people</div>
-                    <div class="perMilCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Deaths</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses given</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses(1 day)</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="locationOverview">
-            <div id="country" style="font-size: medium">Country</div><br />
-            <div id="countryStats">
-                <div class="statsDiv">
-                    <div class="statsHeader">Total Cases</div>
-                    <div class="totalCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(1 day)</div>
-                    <div class="perDayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(14 days)</div>
-                    <div class="per14DayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Cases per 1 million people</div>
-                    <div class="perMilCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Deaths</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses given</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses(1 day)</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-            </div>
-        </div>
-        <hr />
-        <div class="locationOverview">
-            <div id="world" style="font-size: medium">Worldwide</div><br />
-            <div id="worldStats">
-                <div class="statsDiv">
-                    <div class="statsHeader">Total Cases</div>
-                    <div class="totalCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(1 day)</div>
-                    <div class="perDayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">New Cases(14 days)</div>
-                    <div class="per14DayCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Cases per 1 million people</div>
-                    <div class="perMilCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Deaths</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses given</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-                <div class="statsDiv">
-                    <div class="statsHeader">Vaccine doses(1 day)</div>
-                    <div class="deathCasesValue"></div>
-                </div>
-            </div>
+            <table id="table" style="width: 100%">
+            </table>
         </div>
     </div>
     <footer>
         <p>© 2005-2021 COVID-Portal and individual contributors. Content is available under these licenses.</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-    <script src="stats.js"></script>
+    <script src="js/stats.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        getItems();
+    </script>
 </body>
 </html>

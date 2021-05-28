@@ -15,7 +15,7 @@ namespace COVID_19
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            CreateHostBuilder(args).Build().Run();
             /*using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -30,8 +30,6 @@ namespace COVID_19
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }*/
-
-            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

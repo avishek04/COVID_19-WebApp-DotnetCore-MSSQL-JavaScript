@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace COVID_19.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CovidDataController : ControllerBase
     {
         public ICovidDataRepository _covidDataRepository;
@@ -28,11 +28,25 @@ namespace COVID_19.Controllers
             return Ok(allCovidData);
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<Country>> Index()
-        //{
-        //    var allCovidData = _countryRepository.AllCountryData().ToList();
-        //    return Ok(allCovidData);
-        //}
+        [HttpGet("{country}")]
+        public ActionResult<IEnumerable<CovidGridDataViewModel>> CovidCountryGridData(string country)
+        {
+            var covidCountryGridData = _covidDataRepository.CovidCountryGridData(country).ToList();
+            return Ok(covidCountryGridData);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<CovidGridDataViewModel>> CovidGridData()
+        {
+            var covidGridData = _covidDataRepository.CovidGridData();
+            return Ok(covidGridData);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<CovidGraphDataViewModel>> CovidGraphData()
+        {
+            var covidGraphData = _covidDataRepository.CovidGraphData().ToList();
+            return Ok(covidGraphData);
+        }
     }
 }

@@ -6,8 +6,7 @@ namespace COVID_19.Data.Repository
 {
     public class CountryRepository : ICountryRepository
     {
-        public AppDbContext _appDbContext;
-
+        private AppDbContext _appDbContext;
         public CountryRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;

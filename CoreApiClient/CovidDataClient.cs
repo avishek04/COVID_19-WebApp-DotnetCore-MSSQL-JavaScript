@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using COVID_19.CoreApiClient.Mappers;
 using COVID_19.Data;
+using System.Net;
 
 namespace COVID_19.CoreApiClient
 {
@@ -23,7 +24,7 @@ namespace COVID_19.CoreApiClient
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<CovidDataModel>> FetchCovidDataAsync(DateTime inputDate)
+        public List<CovidDataModel> FetchCovidDataAsync(DateTime inputDate)
         {
             try
             {
@@ -31,55 +32,102 @@ namespace COVID_19.CoreApiClient
                 var date = inputDate.ToString(@"MM-dd-yyyy");
                 var client = _clientFactory.CreateClient();
                 var path = $"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/{date}.csv";
-                var request = new HttpRequestMessage(HttpMethod.Get, path);
+                HttpWebRequest request = WebRequest.CreateHttp(path);
+                request.Method = "GET"; // or "POST", "PUT", "PATCH", "DELETE", etc.
+                //var request = new HttpRequestMessage(HttpMethod.Get, path);
                 request.Headers.Add("Accept", "*/*");
-                
-                var response = await client.SendAsync(request);
-                List<CovidDataModel> covidDataCsv;
-                if (response.IsSuccessStatusCode)
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    var responseStream = await response.Content.ReadAsStreamAsync();
-                    if (inputDate > oldDate)
+                    // Do something with the response
+                    using (Stream responseStream = response.GetResponseStream())
                     {
-                        using (StreamReader reader = new StreamReader(responseStream, Encoding.Default))
-                        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                        List<CovidDataModel> covidDataCsv;
+                        // Get a reader capable of reading the response stream
+                        using (StreamReader myStreamReader = new StreamReader(responseStream, Encoding.Default))
                         {
-                            csv.Context.RegisterClassMap<CovidDataMap>();
-                            covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
-                            var covidCountryData = from data in covidDataCsv
-                                                   group data by data.CountryRegionJH into covidData
-                                                   select new CovidDataModel()
-                                                   {
-                                                       CountryRegionJH = covidData.Key,
-                                                       ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
-                                                       DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
-                                                       RecoveredJH = covidData.Sum(x => x.RecoveredJH),
-                                                       ActiveCasesJH = covidData.Sum(x => x.ActiveCasesJH)
-                                                   };
-                            return covidCountryData.ToList();
-                        }
-                    }
-                    else
-                    {
-                        using (StreamReader reader = new StreamReader(responseStream, Encoding.Default))
-                        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                        {
-                            csv.Context.RegisterClassMap<CovidOldDataMap>();
-                            covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
-                            var covidCountryData = from data in covidDataCsv
-                                                   group data by data.CountryRegionJH into covidData
-                                                   select new CovidDataModel()
-                                                   {
-                                                       CountryRegionJH = covidData.Key,
-                                                       ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
-                                                       DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
-                                                       RecoveredJH = covidData.Sum(x => x.RecoveredJH)
-                                                   };
-                            return covidCountryData.ToList();
+                            using (CsvReader csv = new CsvReader(myStreamReader, CultureInfo.InvariantCulture))
+                            {
+                                if (inputDate > oldDate)
+                                {
+                                    csv.Context.RegisterClassMap<CovidDataMap>();
+                                    covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
+                                    var covidCountryData = from data in covidDataCsv
+                                                           group data by data.CountryRegionJH into covidData
+                                                           select new CovidDataModel()
+                                                           {
+                                                               CountryRegionJH = covidData.Key,
+                                                               ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
+                                                               DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
+                                                               RecoveredJH = covidData.Sum(x => x.RecoveredJH),
+                                                               ActiveCasesJH = covidData.Sum(x => x.ActiveCasesJH)
+                                                           };
+                                    return covidCountryData.ToList();
+                                }
+                                else
+                                {
+                                    csv.Context.RegisterClassMap<CovidOldDataMap>();
+                                    covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
+                                    var covidCountryData = from data in covidDataCsv
+                                                           group data by data.CountryRegionJH into covidData
+                                                           select new CovidDataModel()
+                                                           {
+                                                               CountryRegionJH = covidData.Key,
+                                                               ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
+                                                               DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
+                                                               RecoveredJH = covidData.Sum(x => x.RecoveredJH)
+                                                           };
+                                    return covidCountryData.ToList();
+                                }
+                            }
                         }
                     }
                 }
-                return null;
+                //var response = await client.SendAsync(request);
+                //List<CovidDataModel> covidDataCsv;
+                //if (response.IsSuccessStatusCode)
+                //{
+                //    var responseStream = await response.Content.ReadAsStreamAsync();
+                //    if (inputDate > oldDate)
+                //    {
+                //        using (StreamReader reader = new StreamReader(responseStream, Encoding.Default))
+                //        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                //        {
+                //            csv.Context.RegisterClassMap<CovidDataMap>();
+                //            covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
+                //            var covidCountryData = from data in covidDataCsv
+                //                                   group data by data.CountryRegionJH into covidData
+                //                                   select new CovidDataModel()
+                //                                   {
+                //                                       CountryRegionJH = covidData.Key,
+                //                                       ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
+                //                                       DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
+                //                                       RecoveredJH = covidData.Sum(x => x.RecoveredJH),
+                //                                       ActiveCasesJH = covidData.Sum(x => x.ActiveCasesJH)
+                //                                   };
+                //            return covidCountryData.ToList();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        using (StreamReader reader = new StreamReader(responseStream, Encoding.Default))
+                //        using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                //        {
+                //            csv.Context.RegisterClassMap<CovidOldDataMap>();
+                //            covidDataCsv = csv.GetRecords<CovidDataModel>().ToList();
+                //            var covidCountryData = from data in covidDataCsv
+                //                                   group data by data.CountryRegionJH into covidData
+                //                                   select new CovidDataModel()
+                //                                   {
+                //                                       CountryRegionJH = covidData.Key,
+                //                                       ConfirmedCasesJH = covidData.Sum(x => x.ConfirmedCasesJH),
+                //                                       DeathCasesJH = covidData.Sum(x => x.DeathCasesJH),
+                //                                       RecoveredJH = covidData.Sum(x => x.RecoveredJH)
+                //                                   };
+                //            return covidCountryData.ToList();
+                //        }
+                //    }
+                //}
             }
             catch (UnauthorizedAccessException e)
             {
@@ -95,7 +143,7 @@ namespace COVID_19.CoreApiClient
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                 throw new Exception(e.Message);
             }
         }
     }
