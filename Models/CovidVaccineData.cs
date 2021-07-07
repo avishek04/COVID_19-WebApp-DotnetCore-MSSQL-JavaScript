@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace COVID_19.Models
 {
-    public class CovidData
+    public class CovidVaccineData
     {
         [Key]
         public int id { get; set; }
@@ -12,33 +12,33 @@ namespace COVID_19.Models
         public int country_id { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime report_date { get; set; }
+        public DateTime vaccine_report_date { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime db_update_date { get; set; }
+        public DateTime db_update_date_vaccine { get; set; }
 
         [Column(TypeName = "decimal(20, 5)")]
-        public decimal? new_cases { get; set; }
+        public decimal? daily_vaccinations { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? new_deaths { get; set; }
+        public decimal? daily_vaccinations_per_million { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? weekly_cases { get; set; }
+        public decimal? people_vaccinated { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? weekly_deaths { get; set; }
+        public decimal? people_vaccinated_per_hundred { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? biweekly_cases { get; set; }
+        public decimal? people_fully_vaccinated { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? biweekly_deaths { get; set; }
+        public decimal? people_fully_vaccinated_per_hundred { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? total_cases { get; set; }
+        public decimal? total_vaccinations { get; set; }
 
         [Column(TypeName = "decimal(20,5)")]
-        public decimal? total_deaths { get; set; }
+        public decimal? total_vaccinations_per_hundred { get; set; }
     }
 }

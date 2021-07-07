@@ -11,182 +11,210 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="images/favicon.ico" rel="icon" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
     <link rel="stylesheet" href="css/style.css" />
     <title>COVID-19</title>
 </head>
 <body>
-    <header>
+    <header style="border-bottom: 1px solid black">
         <a href="index.html" title="Home"><img src="images/covid-home-icon.webp" width="100" /></a>
         <h1>
             COVID-19 Portal
         </h1>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <div class="social">
+            <a href="mailto:avishek04c@gmail.com"><i style='font-size: 24px; color: #D44638; margin: 10px 10px 10px 10px' class='fas'>&#xf0e0;</i></a>
+            <a href="https://github.com/avishek04" target="_blank"><i style='font-size: 24px; color: #211F1F; margin: 10px 10px 10px 10px' class='fab'>&#xf09b;</i></a>
+            <a href="https://www.linkedin.com/in/avishekchoudhury" target="_blank"><i style='font-size: 24px; color: #0077b5; margin: 10px 10px 10px 10px' class='fab'>&#xf08c;</i></a>
+            <a href="https://twitter.com/aviici967" target="_blank"><i style='font-size: 24px; color: #1DA1F2; margin: 10px 10px 10px 10px' class='fab'>&#xf099;</i></a>
+            <a href="https://www.facebook.com/avi4polo7" target="_blank"><i style='font-size: 24px; color: #4267B2; margin: 10px 10px 10px 10px' class='fab'>&#xf082;</i></a>
+            <a href="https://www.instagram.com/avishek.04/" target="_blank"><i style='font-size: 24px; color: #8a3ab9; margin: 10px 10px 10px 10px' class='fab'>&#xf16d;</i></a>
+        </div>
     </header>
-    <hr />
     <div class="topnav" id="myTopnav">
-        <div>Home</div>
-        <div><a href="stats.html" title="COVID statistics of World and India">Statistics</a></div>
-        <div><a href="news.html" title="news">News</a></div>
-        <div><a href="healthInfo.html" title="All about COVID and you">Health Info</a></div>
-        <div><a href="survey.html" title="How COVID impacted your life">Survey</a></div>
-        <div><a href="about.html" title="About the creator">About</a></div>
-        <div><a href=" " title="Share"><img src=" " />Share</a></div>
-        <div><a href=" " title="Climate"><img src=" " />Climate Change is Real</a></div>
+        <div><a href="index.html"><i class='fas fa-home navicon' style='font-size:24px; color: black'></i>&nbsp;&nbsp;Home</a></div>
+        <div><a href="stats.html" title="COVID statistics of World and India"><i class="fa fa-pie-chart navicon" style="font-size: 24px; color: #b52a0e"></i>&nbsp;&nbsp;Statistics</a></div>
+        <div><a href="vaccine.html" title="COVID vaccination statistics of World and India"><i class='fas fa-syringe navicon' style='font-size: 24px; color: #337d14'></i>&nbsp;&nbsp;Vaccine Stats</a></div>
+        <div><a href="news.html" title="news"><i class='fas fa-newspaper navicon' style='font-size: 24px; color: #006dd4'></i>&nbsp;&nbsp;News</a></div>
+        <div><a href="survey.html" title="How COVID impacted your life"><i class='fas fa-bullhorn navicon' style='font-size: 24px; color: #d49b00'></i>&nbsp;&nbsp;Survey</a></div>
+        <div><a href="about.html"><i class="fa fa-quote-right navicon" style="font-size: 24px; color: #632bb3"></i>&nbsp;&nbsp;About</a></div>
     </div>
     <div class="newsOverview">
-        <div class="newsHeading">
-            Top Stories
+        <div class="countryTweetCol">
+            <div class="tweetHeading">
+                <i class='fab fa-twitter' style='font-size: 24px; color: #1da1f2'></i>&nbsp;&nbsp;
+                COVIDNewsByMIB Tweets
+            </div>
+            <div id="COVIDNewsByMIB"></div>
         </div>
-        <hr />
-        <div class="topCountryNews">
-            <div class="card countryCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
+        <div class="countryNewsCol">
+            <div class="newsHeading">
+                <i style='font-size:24px' class='far'>&#xf1ea;</i>&nbsp;&nbsp;
+                Top News
             </div>
-            <div class="card countryCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card countryCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card countryCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card countryCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
+            <hr style="border-width: thick; margin: 5px 0px 0px 0px" />
+            <div id="countryNews"></div>
         </div>
-        <div class="topWorldNews">
-            <div class="card worldCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
+        <div class="countryTweetCol">
+            <div class="tweetHeading">
+                <i class='fab fa-twitter' style='font-size: 24px; color: #1da1f2'></i>&nbsp;&nbsp;
+                MoHFW_INDIA Tweets
             </div>
-            <div class="card worldCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card worldCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card worldCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
-            <div class="card worldCard">
-                <img class="card-img-top image" src="" alt="Card image cap">
-                <div class="card-body btCard">
-                    <h5><a href=""></a></h5>
-                    <p class="card-text para"></p>
-                </div>
-            </div>
+            <div id="MoHFW_INDIA"></div>
         </div>
     </div>
     <div class="casesOverview">
         <div class="casesHeading">
+            <i class='far fa-list-alt' style='font-size:24px'></i>&nbsp;&nbsp;
             Cases Overview
         </div>
-        <hr />
+        <hr style="border-width: thick; margin: 5px 0px 5px 0px" />
         <div class="countryOverview">
+            &nbsp;&nbsp;
+            <i class='fas fa-map-marker-alt' style='font-size:24px'></i>&nbsp;
             <div id="country" style="font-size: medium"></div><br />
-            <div id="countryStats">
+            <div class="countryStats">
                 <div class="statsDiv">
                     <div class="statsHeader">Total Cases</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">Active Cases</div><br />
+                    <div class="statsHeader">Daily Cases</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">New Cases in 1 day</div><br />
+                    <div class="statsHeader">Total Deaths</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">New Cases in 14 days</div><br />
+                    <div class="statsHeader">Daily Deaths</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">Recovered</div><br />
+                    <div class="statsHeader">Weekly Cases</div><br />
                     <div class="stat"></div>
                 </div>
-                <!--<div class="statsDiv">
-                    <div class="statsHeader">Cases per 1 million people</div>
-                    <div class="perMilCasesValue"></div>
-                </div>-->
                 <div class="statsDiv">
-                    <div class="statsHeader">Deaths</div><br />
+                    <div class="statsHeader">Weekly Deaths</div><br />
+                    <div class="stat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Bi-weekly Cases</div><br />
+                    <div class="stat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Bi-weekly Deaths</div><br />
                     <div class="stat"></div>
                 </div>
             </div>
+            <div class="countryStats">
+                <div class="statsDiv">
+                    <div class="statsHeader">Total Vaccination</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Total Vaccination/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">First Dose Vaccine</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">First Dose Vaccine/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Fully Vaccinated</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Fully Vaccinated/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Daily Vaccination</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Daily Vaccination/mil</div><br />
+                    <div class="vacStat"></div>
+                </div>
+            </div>
         </div>
-        <hr />
+        <hr style="border-width: thick; margin: 5px 0px 5px 0px" />
         <div class="worldOverview">
+            &nbsp;&nbsp;
+            <i style="font-size:24px" class="fa">&#xf0ac;</i>&nbsp;
             <div id="world" style="font-size: medium">Worldwide</div><br />
-            <div id="worldStats">
+            <div class="worldStats">
                 <div class="statsDiv">
                     <div class="statsHeader">Total Cases</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">Active Cases</div><br />
+                    <div class="statsHeader">Daily Cases</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">New Cases in 1 day</div><br />
+                    <div class="statsHeader">Total Deaths</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">New Cases in 14 days</div><br />
+                    <div class="statsHeader">Daily Deaths</div><br />
                     <div class="stat"></div>
                 </div>
                 <div class="statsDiv">
-                    <div class="statsHeader">Recovered</div><br />
+                    <div class="statsHeader">Weekly Cases</div><br />
                     <div class="stat"></div>
                 </div>
-                <!--<div class="statsDiv">
-                    <div class="statsHeader">Cases per 1 million people</div>
-                    <div class="perMilCasesValue"></div>
-                </div>-->
                 <div class="statsDiv">
-                    <div class="statsHeader">Deaths</div><br />
+                    <div class="statsHeader">Weekly Deaths</div><br />
                     <div class="stat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Bi-weekly Cases</div><br />
+                    <div class="stat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Bi-weekly Deaths</div><br />
+                    <div class="stat"></div>
+                </div>
+            </div>
+            <div class="worldStats">
+                <div class="statsDiv">
+                    <div class="statsHeader">Total Vaccination</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Total Vaccination/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">First Dose Vaccine</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">First Dose Vaccine/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Fully Vaccinated</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Fully Vaccinated/100</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Daily Vaccination</div><br />
+                    <div class="vacStat"></div>
+                </div>
+                <div class="statsDiv">
+                    <div class="statsHeader">Daily Vaccination/mil</div><br />
+                    <div class="vacStat"></div>
                 </div>
             </div>
         </div>

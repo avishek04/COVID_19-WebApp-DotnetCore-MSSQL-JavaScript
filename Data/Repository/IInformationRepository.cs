@@ -5,6 +5,7 @@ namespace COVID_19.Data.Repository
 {
     public interface IInformationRepository
     {
-        IEnumerable<NewsArticle> GetTopCovidNewsCountry(string country);
+        List<NewsArticle> GetTopCovidNewsCountry();
+        List<NewsArticle> GetTopCovidNewsNYT();
     }
 }

@@ -5,6 +5,7 @@ namespace COVID_19.CoreApiClient
 {
     public interface INewsAPIClient
     {
-        List<NewsArticle> FetchCovidNews(string countryCode);
+        List<NewsArticle> FetchCovidNews();
+        List<NewsArticle> FetchNYTHealthNews();
     }
 }

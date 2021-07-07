@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using COVID_19.Models;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace COVID_19.Data
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : DbContext
     {
         public AppDbContext()
         {
@@ -22,7 +15,12 @@ namespace COVID_19.Data
         }
 
         public DbSet<CovidData> covidcountrydata { get; set; }
+        public DbSet<CovidVaccineData> covidVaccineData { get; set; }
         public DbSet<Country> country { get; set; }
+        public DbSet<Questions> questions { get; set; }
+        public DbSet<SurveyResponse> surveyResponse { get; set; }
+        public DbSet<SiteTracking> siteTracking { get; set; }
+        //public DbSet<User> users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,7 +38,6 @@ namespace COVID_19.Data
             //    .HasForeignKey(s => s.UserId);
 
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }

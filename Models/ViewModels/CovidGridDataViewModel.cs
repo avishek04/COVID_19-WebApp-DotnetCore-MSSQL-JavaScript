@@ -7,13 +7,14 @@ namespace COVID_19.Models.ViewModels
 {
     public class CovidGridDataViewModel
     {
-        public string country_name { get; set; }
-        public long? totalCaseCount { get; set; }
-        public long? activeCaseCount { get; set; }
-        public long? recoveredCaseCount { get; set; }
-        public long? lastDayCaseCount { get; set; }
-        public long? lastTwoWeekCaseCount { get; set; }
-        public long? casesPerMillion { get; set; }
-        public long? totalDeathCaseCount { get; set; }
+        public string countryName { get; set; }
+        public long? totalCases { get; set; }
+        public long? totalDeaths { get; set; }
+        public long? dailyCases { get; set; }
+        public long? dailyDeaths { get; set; }
+        public long? weeklyCases { get; set; }
+        public long? weeklyDeaths { get; set; }
+        public long? biweeklyCases { get; set; }
+        public long? biweeklyDeaths { get; set; }
     }
 }

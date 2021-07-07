@@ -7,6 +7,7 @@ namespace COVID_19.CoreApiClient
 {
     public interface ICovidDataClient
     {
-        List<CovidDataModel> FetchCovidDataAsync(DateTime date);
+        List<CovidDataModel> FetchCovidDataAsync();
+        List<VaccineDataModel> FetchVaccineDataAsync();
     }
 }

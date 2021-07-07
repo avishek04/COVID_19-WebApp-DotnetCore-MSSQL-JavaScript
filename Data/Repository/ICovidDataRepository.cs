@@ -9,9 +9,8 @@ namespace COVID_19.Data.Repository
     {
         IEnumerable<CovidData> AllCountryCovidData { get; }
         List<DateTime> GetAllDates(DateTime startDate, DateTime endDate);
-        IEnumerable<CovidDataViewModel> AllCovidData();
-        IEnumerable<CovidGridDataViewModel> CovidCountryGridData(string country);
-        IEnumerable<CovidGridDataViewModel> CovidGridData();
-        IEnumerable<CovidGraphDataViewModel> CovidGraphData();
+        List<CovidGridDataViewModel> CovidGridData();
+        List<CovidGridDataViewModel> CovidCountryGridData(string countryUI);
+        List<CovidGraphDataViewModel> CovidGraphData(string countryUI);
     }
 }

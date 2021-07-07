@@ -15,10 +15,35 @@ namespace COVID_19.Data.Repository
             _newsAPIClient = newsAPIClient;
             _countryRepository = countryRepository;
         }
-        public IEnumerable<NewsArticle> GetTopCovidNewsCountry(string country)
+
+        public List<NewsArticle> GetTopCovidNewsCountry()//string country)
         {
-            var countryIso = country == "World"? "nil" : _countryRepository.AllCountryData().Where(x => x.country_name == country).FirstOrDefault().iso2;
-            var covidCountryNews = _newsAPIClient.FetchCovidNews(countryIso);
+            List<NewsArticle> covidCountryNews = new List<NewsArticle>();
+
+            try
+            {
+                //var countryIso = country == "World" ? "nil" : _countryRepository.AllCountryData().Where(x => x.country_name == country).FirstOrDefault().iso2;
+                covidCountryNews = _newsAPIClient.FetchCovidNews().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return covidCountryNews;
+        }
+
+        public List<NewsArticle> GetTopCovidNewsNYT()
+        {
+            List<NewsArticle> covidCountryNews = new List<NewsArticle>();
+
+            try
+            {
+                covidCountryNews = _newsAPIClient.FetchNYTHealthNews().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return covidCountryNews;
         }
     }

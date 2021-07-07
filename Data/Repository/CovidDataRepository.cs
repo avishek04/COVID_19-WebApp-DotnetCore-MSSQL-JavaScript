@@ -32,231 +32,251 @@ namespace COVID_19.Data.Repository
             }
         }
 
-        public IEnumerable<CovidGridDataViewModel> CovidGridData()
+        public List<CovidGridDataViewModel> CovidGridData()
         {
-            var covidGridData = new List<CovidGridDataViewModel>();
-            var allCovidData = AllCovidData();
-            //var covidCountryData = allCovidData.Where(data => data.country_name == country);
-            var lastReportDate = allCovidData.OrderByDescending(x => x.report_date).FirstOrDefault().report_date;
-            var dayBeforeLastReportDate = lastReportDate.AddDays(-1);
-            var twoWeekBackReportDate = lastReportDate.AddDays(-15);
-            var countryList = allCovidData.OrderBy(x => x.country_name).Select(x => x.country_name).Distinct().ToList();
-            var todaysRecord = allCovidData.Where(x => x.report_date == lastReportDate).ToList();
-            var yesterdaysRecord = allCovidData.Where(x => x.report_date == dayBeforeLastReportDate).ToList();
-            var twoWeekBackRecord = allCovidData.Where(x => x.report_date == twoWeekBackReportDate).ToList(); 
-            foreach (var country in countryList)
+            List<CovidGridDataViewModel> covidGridData = new List<CovidGridDataViewModel>();
+            try
             {
-                var todaysRecordCountry = todaysRecord.Where(x => x.country_name == country).FirstOrDefault();
-                var yesterdaysRecordCountry = yesterdaysRecord.Where(x => x.country_name == country).FirstOrDefault();
-                var twoWeekBackRecordCountry = twoWeekBackRecord.Where(x => x.country_name == country).FirstOrDefault();
-                
-                if (todaysRecordCountry == null)
-                {
-                    continue;
-                }
-                else
-                {
-                    covidGridData.Add(
-                    new CovidGridDataViewModel
-                    {
-                        country_name = country,
-                        totalCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases),
-                        activeCaseCount = Convert.ToInt64(todaysRecordCountry.active_cases),
-                        recoveredCaseCount = Convert.ToInt64(todaysRecordCountry.recovered),
-                        lastDayCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases - yesterdaysRecordCountry.confirmed_cases),
-                        lastTwoWeekCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases - twoWeekBackRecordCountry.confirmed_cases),
-                        casesPerMillion = 0,
-                        totalDeathCaseCount = Convert.ToInt64(todaysRecordCountry.death_cases)
-                    });
-                }
-                
+                UpdateAllCovidData();
+
+                var allCovidData = AllCountryCovidData.ToList();
+                var secondLastReportDate = allCovidData.Select(x => x.report_date).Max(date => date).AddDays(-1);
+                covidGridData = (from gridData in allCovidData
+                                 join country in _countryRepository.AllCountries
+                                 on gridData.country_id equals country.id
+                                 where gridData.report_date == secondLastReportDate
+                                 select new CovidGridDataViewModel
+                                 {
+                                     countryName = country.country_name,
+                                     totalCases = Convert.ToInt64(gridData.total_cases != null ? gridData.total_cases : 0),
+                                     totalDeaths = Convert.ToInt64(gridData.total_deaths != null ? gridData.total_deaths : 0),
+                                     dailyCases = Convert.ToInt64(gridData.new_cases != null ? gridData.new_cases : 0),
+                                     dailyDeaths = Convert.ToInt64(gridData.new_deaths != null ? gridData.new_deaths : 0),
+                                     weeklyCases = Convert.ToInt64(gridData.weekly_cases != null ? gridData.weekly_cases : 0),
+                                     weeklyDeaths = Convert.ToInt64(gridData.weekly_deaths != null ? gridData.weekly_deaths : 0),
+                                     biweeklyCases = Convert.ToInt64(gridData.biweekly_cases != null ? gridData.biweekly_cases : 0),
+                                     biweeklyDeaths = Convert.ToInt64(gridData.biweekly_deaths != null ? gridData.biweekly_deaths : 0)
+                                 }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return covidGridData;
         }
 
-        public IEnumerable<CovidGridDataViewModel> CovidCountryGridData(string country)
+        public List<CovidGridDataViewModel> CovidCountryGridData(string countryUI)
         {
-            var covidGridData = new List<CovidGridDataViewModel>();
-            var allCovidData = AllCovidData();
-            var covidCountryData = allCovidData.Where(data => data.country_name == country);
-            var lastReportDate = allCovidData.OrderByDescending(x => x.report_date).FirstOrDefault().report_date;
-            var dayBeforeLastReportDate = lastReportDate.AddDays(-1);
-            var twoWeekBackReportDate = lastReportDate.AddDays(-15);
-            var todaysRecordCountry = covidCountryData.Where(x => x.report_date == lastReportDate)
-                                                      .FirstOrDefault();
-            var yesterdaysRecordCountry = covidCountryData.Where(x => x.report_date == dayBeforeLastReportDate)
-                                                         .FirstOrDefault();
-            var twoWeekBackRecordCountry = covidCountryData.Where(x => x.report_date == twoWeekBackReportDate)
-                                                         .FirstOrDefault();
-            var todaysRecordWorld = allCovidData.Where(x => x.report_date == lastReportDate).ToList();
-            var yesterdaysRecordWorld = allCovidData.Where(x => x.report_date == dayBeforeLastReportDate).ToList();
-            var twoWeekBackRecordWorld = allCovidData.Where(x => x.report_date == twoWeekBackReportDate).ToList();
-            covidGridData.Add(
-                new CovidGridDataViewModel
+            List<CovidGridDataViewModel> covidGridData = new List<CovidGridDataViewModel>();
+            CovidGridDataViewModel worldGridData = new CovidGridDataViewModel();
+            var countryName = "India";
+
+            try
+            {
+                if (countryUI != null || countryUI != "")
                 {
-                    country_name = country,
-                    totalCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases),
-                    activeCaseCount = Convert.ToInt64(todaysRecordCountry.active_cases),
-                    recoveredCaseCount = Convert.ToInt64(todaysRecordCountry.recovered),
-                    lastDayCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases - yesterdaysRecordCountry.confirmed_cases),
-                    lastTwoWeekCaseCount = Convert.ToInt64(todaysRecordCountry.confirmed_cases - twoWeekBackRecordCountry.confirmed_cases),
-                    casesPerMillion = 0,
-                    totalDeathCaseCount = Convert.ToInt64(todaysRecordCountry.death_cases)
+                    countryName = countryUI;
                 }
-            );
-            covidGridData.Add(
-                new CovidGridDataViewModel
+                UpdateAllCovidData();
+
+
+                var allCovidData = AllCountryCovidData.ToList();
+                var secondLastReportDate = allCovidData.Select(x => x.report_date).Max(date => date).AddDays(-1);
+                var lastDayRecords = allCovidData.Where(x => x.report_date == secondLastReportDate).ToList();
+                var countryGridData = from gridData in lastDayRecords
+                                      join country in _countryRepository.AllCountries
+                                      on gridData.country_id equals country.id
+                                      where country.country_name == countryName
+                                      select new CovidGridDataViewModel
+                                      {
+                                          countryName = country.country_name,
+                                          totalCases = Convert.ToInt64(gridData.total_cases != null ? gridData.total_cases : 0),
+                                          totalDeaths = Convert.ToInt64(gridData.total_deaths != null ? gridData.total_deaths : 0),
+                                          dailyCases = Convert.ToInt64(gridData.new_cases != null ? gridData.new_cases : 0),
+                                          dailyDeaths = Convert.ToInt64(gridData.new_deaths != null ? gridData.new_deaths : 0),
+                                          weeklyCases = Convert.ToInt64(gridData.weekly_cases != null ? gridData.weekly_cases : 0),
+                                          weeklyDeaths = Convert.ToInt64(gridData.weekly_deaths != null ? gridData.weekly_deaths : 0),
+                                          biweeklyCases = Convert.ToInt64(gridData.biweekly_cases != null ? gridData.biweekly_cases : 0),
+                                          biweeklyDeaths = Convert.ToInt64(gridData.biweekly_deaths != null ? gridData.biweekly_deaths : 0)
+                                      };
+
+                if (lastDayRecords != null)
                 {
-                    country_name = "World",
-                    totalCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.confirmed_cases)),
-                    activeCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.active_cases)),
-                    recoveredCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.recovered)),
-                    lastDayCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.confirmed_cases) - yesterdaysRecordWorld.Sum(x => x.confirmed_cases)),
-                    lastTwoWeekCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.confirmed_cases) - twoWeekBackRecordWorld.Sum(x => x.confirmed_cases)),
-                    casesPerMillion = 0,
-                    totalDeathCaseCount = Convert.ToInt64(todaysRecordWorld.Sum(x => x.death_cases))
+                    worldGridData.countryName = "World";
+                    worldGridData.totalCases = Convert.ToInt64(lastDayRecords.Select(data => data.total_cases).Sum(x => x));
+                    worldGridData.totalDeaths = Convert.ToInt64(lastDayRecords.Select(data => data.total_deaths).Sum(x => x));
+                    worldGridData.dailyCases = Convert.ToInt64(lastDayRecords.Select(data => data.new_cases).Sum(x => x));
+                    worldGridData.dailyDeaths = Convert.ToInt64(lastDayRecords.Select(data => data.new_deaths).Sum(x => x));
+                    worldGridData.weeklyCases = Convert.ToInt64(lastDayRecords.Select(data => data.weekly_cases).Sum(x => x));
+                    worldGridData.weeklyDeaths = Convert.ToInt64(lastDayRecords.Select(data => data.weekly_deaths).Sum(x => x));
+                    worldGridData.biweeklyCases = Convert.ToInt64(lastDayRecords.Select(data => data.biweekly_cases).Sum(x => x));
+                    worldGridData.biweeklyDeaths = Convert.ToInt64(lastDayRecords.Select(data => data.biweekly_deaths).Sum(x => x));
                 }
-            );
+
+                covidGridData.AddRange(countryGridData);
+                covidGridData.Add(worldGridData);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
             return covidGridData;
         }
 
-        public IEnumerable<CovidGraphDataViewModel> CovidGraphData()
-        {
-            var covidGraphData = new List<CovidGraphDataViewModel>();
-            var allCovidData = AllCovidData().Where(x => x.report_date > new DateTime(2020, 2, 1)).ToList();
-            var lastDayDataSet = allCovidData.Select(x => new { x.report_date, x.country_name, x.confirmed_cases, x.death_cases });
+        //public IEnumerable<CovidGraphDataViewModel> CovidGraphData()
+        //{
+        //    var covidGraphData = new List<CovidGraphDataViewModel>();
+        //    var allCovidData = AllCovidData().Where(x => x.report_date > new DateTime(2020, 2, 1)).ToList();
+        //    var lastDayDataSet = allCovidData.Select(x => new { x.report_date, x.country_name, x.confirmed_cases, x.death_cases });
 
-            foreach (var covidData in allCovidData)
+        //    foreach (var covidData in allCovidData)
+        //    {
+        //        //var dayBefore = covidData.report_date.AddDays(-1);
+        //        if (covidData.report_date != null && covidData.country_name != null)
+        //        {
+        //            var dayBeforeRecord = lastDayDataSet.Where(x => x.report_date == covidData.report_date.AddDays(-1) && x.country_name == covidData.country_name).FirstOrDefault();
+        //            if (dayBeforeRecord != null)
+        //            {
+        //                if (covidData.confirmed_cases != null && covidData.active_cases != null &&
+        //                covidData.death_cases != null && dayBeforeRecord.confirmed_cases != null &&
+        //                dayBeforeRecord.death_cases != null)
+        //                {
+        //                    covidGraphData.Add(new CovidGraphDataViewModel
+        //                    {
+        //                        country_name = covidData.country_name,
+        //                        report_date = covidData.report_date,
+        //                        new_cases = Convert.ToInt64(covidData.confirmed_cases - dayBeforeRecord.confirmed_cases),
+        //                        active_cases = Convert.ToInt64(covidData.active_cases),
+        //                        new_deaths = Convert.ToInt64(covidData.death_cases - dayBeforeRecord.death_cases)
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+        //    //covidGraphData.AddRange(covidGraphData);
+        //    return covidGraphData;
+        //}
+
+        public List<CovidGraphDataViewModel> CovidGraphData(string countryUI)
+        {
+            List<CovidGraphDataViewModel> covidGraphData = new List<CovidGraphDataViewModel>();
+            var countryName = "India";
+            try
             {
-                //var dayBefore = covidData.report_date.AddDays(-1);
-                if (covidData.report_date != null && covidData.country_name != null)
+                if (countryUI != null || countryUI != "")
                 {
-                    var dayBeforeRecord = lastDayDataSet.Where(x => x.report_date == covidData.report_date.AddDays(-1) && x.country_name == covidData.country_name)
-                                                    .FirstOrDefault();
-                    if (dayBeforeRecord != null)
-                    {
-                        if (covidData.confirmed_cases != null && covidData.active_cases != null &&
-                        covidData.death_cases != null && dayBeforeRecord.confirmed_cases != null &&
-                        dayBeforeRecord.death_cases != null)
-                        {
-                            covidGraphData.Add(new CovidGraphDataViewModel
-                            {
-                                country_name = covidData.country_name,
-                                report_date = covidData.report_date,
-                                new_cases = Convert.ToInt64(covidData.confirmed_cases - dayBeforeRecord.confirmed_cases),
-                                active_cases = Convert.ToInt64(covidData.active_cases),
-                                new_deaths = Convert.ToInt64(covidData.death_cases - dayBeforeRecord.death_cases)
-                            });
-                        }
-                    }
+                    countryName = countryUI;
+                }
+
+                var allCovidData = AllCountryCovidData.ToList();
+                if (allCovidData != null)
+                {
+                    covidGraphData = (from graphData in allCovidData
+                                      join country in _countryRepository.AllCountries
+                                      on graphData.country_id equals country.id
+                                      where country.country_name == countryName
+                                      select new CovidGraphDataViewModel
+                                      {
+                                          countryName = country.country_name,
+                                          reportDate = graphData.report_date.Date != null ? graphData.report_date.Date : DateTime.Now,
+                                          totalCases = Convert.ToInt64(graphData.total_cases != null ? graphData.total_cases : 0),
+                                          totalDeaths = Convert.ToInt64(graphData.total_deaths != null ? graphData.total_deaths : 0),
+                                          dailyCases = Convert.ToInt64(graphData.new_cases != null ? graphData.new_cases : 0),
+                                          dailyDeaths = Convert.ToInt64(graphData.new_deaths != null ? graphData.new_deaths : 0)
+                                      }).ToList();
                 }
             }
-            //covidGraphData.AddRange(covidGraphData);
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
             return covidGraphData;
         }
-        public IEnumerable<CovidDataViewModel> AllCovidData()
-        {
-            UpdateAllCovidData();
-            var allCovidData = from covidData in AllCountryCovidData
-                               join country in _countryRepository.AllCountryData()
-                               on covidData.country_id equals country.id
-                               select new CovidDataViewModel
-                               {    
-                                   country_name = country.country_name,
-                                   iso2 = country.iso2,
-                                   iso3 = country.iso3,
-                                   report_date = covidData.report_date,
-                                   db_update_date = covidData.db_update_date,
-                                   confirmed_cases = covidData.confirmed_cases, 
-                                   death_cases = covidData.death_cases,
-                                   recovered = covidData.recovered,
-                                   active_cases = covidData.active_cases
-                               };
-            return allCovidData;
-        }
+
+        //public IEnumerable<CovidGraphDataViewModel> CovidAverageGraphData(string countryUI)
+        //{
+        //    var covidGraphData = CovidGraphData(countryUI).ToList();
+
+        //    int i = 0;
+        //    var covidAvgGraphData = new List<CovidGraphDataViewModel>();
+        //    while (i < (covidGraphData.Count() - 2))
+        //    {
+        //        covidAvgGraphData.Add(new CovidGraphDataViewModel
+        //        {
+        //            countryName = covidGraphData[i].countryName,
+        //            reportDate = covidGraphData[i + 1].reportDate,
+        //            totalCases = (covidGraphData[i].totalCases + covidGraphData[i + 1].totalCases + covidGraphData[i + 2].totalCases) / 3,
+        //            totalDeaths = (covidGraphData[i].totalDeaths + covidGraphData[i + 1].totalDeaths + covidGraphData[i + 2].totalDeaths) / 3,
+        //            newCases = (covidGraphData[i].newCases + covidGraphData[i + 1].newCases + covidGraphData[i + 2].newCases) / 3,
+        //            newDeaths = (covidGraphData[i].newDeaths + covidGraphData[i + 1].newDeaths + covidGraphData[i + 2].newDeaths) / 3,
+        //        });
+        //        i += 3;
+        //    }
+        //    return covidGraphData;
+        //}
 
         public void UpdateAllCovidData()
         {
-            //if (AllCountryCovidData.ToList().Count() < 1)
-            //{
-            //    var startDate = new DateTime(2020, 1, 22);
-            //    var endDate = DateTime.UtcNow.AddDays(-1);
-            //    var allDates = GetAllDates(startDate, endDate);
-            //    AddCovidData(allDates);
-            //}
-            var reportDateList = AllCountryCovidData.Any()? AllCountryCovidData.Select(data => data.report_date)
-                                                    .Distinct() 
-                                                    .ToList() : new List<DateTime>();
-            var lastAddedDate = reportDateList.Any()? reportDateList.Max().Date : new DateTime(2020, 1, 22);
-            var todayDate = DateTime.UtcNow.Date;
-            var yesterdayDate = todayDate.AddDays(-1).Date;
-            var lastWeekDate = todayDate.AddDays(-8).Date;
-            var twoWeekBackDate = DateTime.UtcNow.AddDays(-15).Date;
-
-            if (lastAddedDate < yesterdayDate) 
+            try
             {
-                var startDate = lastAddedDate.AddDays(1);
-                var endDate = yesterdayDate;
-                var allDates = GetAllDates(startDate, endDate);
-                if (allDates.Count > 0)
+                if (!AllCountryCovidData.Any())
                 {
-                    AddCovidData(allDates);
+                    AddAllCovidData();
+                }
+
+                if (AllCountryCovidData.Any())
+                {
+                    var lastReportDate = AllCountryCovidData.Select(data => data.report_date)
+                                                            .Distinct()
+                                                            .Max();
+                    var dayBeforeYesterdayDate = DateTime.UtcNow.AddDays(-2).Date;
+                    if (lastReportDate < dayBeforeYesterdayDate)
+                    {
+                        AddCovidData(lastReportDate);
+                    }
                 }
             }
-
-            var lastWeekRecordsToUpdate = AllCountryCovidData.Where(data => data.report_date.Date > lastWeekDate.Date
-                                                              && data.db_update_date.Date < yesterdayDate.Date)
-                                                             .Select(data => data.report_date.Date)
-                                                             .Distinct()
-                                                             .ToList();
-            var oldRecordsToUpdate = AllCountryCovidData.Where(data => data.report_date.Date < lastWeekDate.Date
-                                                         && data.db_update_date.Date < twoWeekBackDate.Date)
-                                                        .Select(data => data.report_date.Date)
-                                                        .Distinct()
-                                                        .ToList();
-
-            if (lastWeekRecordsToUpdate.Any())
+            catch(Exception ex)
             {
-                UpdateCovidData(lastWeekRecordsToUpdate);
-            }
-
-            if (oldRecordsToUpdate.Any())
-            {
-                UpdateCovidData(oldRecordsToUpdate);
+                throw ex;
             }
         }
 
-        public void AddCovidData(List<DateTime> dateList)
+        public void AddAllCovidData()
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
+            try
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var allCountry = _countryRepository.AllCountryData();
-                foreach (var date in dateList)
+                using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var newCovidData = _covidDataClient.FetchCovidDataAsync(date);
-                    
-                    if (newCovidData.Any())
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    var allCountry = _countryRepository.AllCountryData();
+                    var covidApiData = _covidDataClient.FetchCovidDataAsync();
+                    if (covidApiData.Any())
                     {
                         var covidData = new List<CovidData>();
-                        foreach (var data in newCovidData)
+                        foreach (var data in covidApiData)
                         {
-                            if (data.CountryRegionJH == "Mainland China")
+                            var matchingCountry = allCountry.Where(x => x.country_name == data.CountryJH);
+                            if (!matchingCountry.Any())
                             {
-                                data.CountryRegionJH = "China";
+                                continue;
                             }
-
-                            var matchingCountry = allCountry.Where(x => x.country_name == data.CountryRegionJH);
+                            var countryId = matchingCountry.FirstOrDefault().id;
                             covidData.Add(
-                                new CovidData()
+                                new CovidData
                                 {
-                                    country_id = matchingCountry.Any() ? matchingCountry.FirstOrDefault().id : 0,
-                                    report_date = date,
-                                    db_update_date = DateTime.UtcNow,
-                                    confirmed_cases = data.ConfirmedCasesJH,
-                                    death_cases = data.DeathCasesJH,
-                                    recovered = data.RecoveredJH,
-                                    active_cases = data.ActiveCasesJH, //change the code to get Active Cases for old date
+                                    country_id = countryId,
+                                    report_date = data.ReportDateJH,
+                                    db_update_date = DateTime.UtcNow.Date,
+                                    new_cases = data.NewCasesJH != null ? data.NewCasesJH : 0,
+                                    new_deaths = data.NewDeathsJH != null ? data.NewDeathsJH : 0,
+                                    weekly_cases = data.WeeklyCasesJH != null ? data.WeeklyCasesJH : 0,
+                                    weekly_deaths = data.WeeklyDeathsJH != null ? data.WeeklyDeathsJH : 0,
+                                    biweekly_cases = data.BiWeeklyCasesJH != null ? data.BiWeeklyCasesJH : 0,
+                                    biweekly_deaths = data.BiWeeklyDeathsJH != null ? data.BiWeeklyDeathsJH : 0,
+                                    total_cases = data.TotalCasesJH != null ? data.TotalCasesJH : 0,
+                                    total_deaths = data.TotalDeathsJH != null ? data.TotalDeathsJH : 0
                                 }
                             );
                         }
@@ -265,50 +285,76 @@ namespace COVID_19.Data.Repository
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public void UpdateCovidData(List<DateTime> dateList)
+        public void AddCovidData(DateTime lastReportDate)
         {
-            using (var scope = _serviceScopeFactory.CreateScope())
+            try
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                var allCovidData = dbContext.covidcountrydata.AsEnumerable();
-                var allCountry = _countryRepository.AllCountryData();
-                foreach (var date in dateList)
+                using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    var updateCovidData = _covidDataClient.FetchCovidDataAsync(date);
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    var allCountry = _countryRepository.AllCountryData();
+                    var covidApiData = _covidDataClient.FetchCovidDataAsync().Where(data => data.ReportDateJH > lastReportDate);
 
-                    foreach (var data in updateCovidData)
+                    if (covidApiData.Any())
                     {
-                        var singleCountryUpdate = (from covidData in allCovidData
-                                                   join countryData in allCountry
-                                                   on covidData.country_id equals countryData.id
-                                                   where covidData.report_date == date && countryData.country_name == data.CountryRegionJH
-                                                   select covidData).FirstOrDefault();
-
-                        if (singleCountryUpdate != null)
+                        var covidData = new List<CovidData>();
+                        foreach (var data in covidApiData)
                         {
-                            singleCountryUpdate.report_date = date;
-                            singleCountryUpdate.db_update_date = DateTime.UtcNow;
-                            singleCountryUpdate.confirmed_cases = data.ConfirmedCasesJH;
-                            singleCountryUpdate.death_cases = data.DeathCasesJH;
-                            singleCountryUpdate.recovered = data.RecoveredJH;
-                            singleCountryUpdate.active_cases = data.ActiveCasesJH;
+                            var matchingCountry = allCountry.Where(x => x.country_name == data.CountryJH);
+                            if (!matchingCountry.Any())
+                            {
+                                continue;
+                            }
+                            var countryId = matchingCountry.FirstOrDefault().id;
+                            covidData.Add(
+                                new CovidData
+                                {
+                                    country_id = countryId,
+                                    report_date = data.ReportDateJH,
+                                    db_update_date = DateTime.UtcNow.Date,
+                                    new_cases = data.NewCasesJH != null ? data.NewCasesJH : 0,
+                                    new_deaths = data.NewDeathsJH != null ? data.NewDeathsJH : 0,
+                                    weekly_cases = data.WeeklyCasesJH != null ? data.WeeklyCasesJH : 0,
+                                    weekly_deaths = data.WeeklyDeathsJH != null ? data.WeeklyDeathsJH : 0,
+                                    biweekly_cases = data.BiWeeklyCasesJH != null ? data.BiWeeklyCasesJH : 0,
+                                    biweekly_deaths = data.BiWeeklyDeathsJH != null ? data.BiWeeklyDeathsJH : 0,
+                                    total_cases = data.TotalCasesJH != null ? data.TotalCasesJH : 0,
+                                    total_deaths = data.TotalDeathsJH != null ? data.TotalDeathsJH : 0
+                                }
+                            );
                         }
+                        dbContext.covidcountrydata.AddRange(covidData);
+                        dbContext.SaveChanges();
                     }
                 }
-                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
         public List<DateTime> GetAllDates(DateTime startDate, DateTime endDate)
         {
             List<DateTime> allDates = new List<DateTime>();
-            var start = startDate.Date;
-            var end = endDate.Date;
-            for (DateTime i = start; i <= end; i = i.AddDays(1))
+            try
             {
-                allDates.Add(i);
+                var start = startDate.Date;
+                var end = endDate.Date;
+                for (DateTime i = start; i <= end; i = i.AddDays(1))
+                {
+                    allDates.Add(i);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             return allDates;
         }

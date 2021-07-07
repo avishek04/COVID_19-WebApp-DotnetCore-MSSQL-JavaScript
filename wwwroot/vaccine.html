@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="css/style.css" />
-    <title>COVID-19 Statistics</title>
+    <title>COVID-19 Vaccine Statistics</title>
 </head>
 <body>
     <header style="border-bottom: 1px solid black">
@@ -43,24 +43,24 @@
     </div>
     <div class="chartsOverview">
         <div class="chartsHeading">
-            <i class="fa fa-bar-chart" style="font-size: 24px; color: #b52a0e"></i>&nbsp;&nbsp;COVID-19 Charts
+            <i class="fa fa-bar-chart" style="font-size: 24px; color: #337d14"></i>&nbsp;&nbsp;COVID-19 Vaccine Chart
         </div>
         <hr style="border-width: thick; margin: 10px 0px 10px 0px" />
         <div class="charts">
-            <div class="chartCases">
-                <div class="chartCasesHeading">
-                    <i class='fas fa-virus' style='font-size: 24px; color: #b52a0e'></i>&nbsp;&nbsp;
-                    Cases &nbsp;&nbsp;
-                    <select id="casesCountry1">
+            <div class="chartVaccines">
+                <div class="chartVaccinesHeading">
+                    <i class='fas fa-syringe' style='font-size: 24px; color: #337d14'></i>&nbsp;&nbsp;Vaccination&nbsp;&nbsp;
+                    <select id="vaccinesCountry1">
                     </select>
-                    <select id="casesCountry2">
+                    <select id="vaccinesCountry2">
                         <option value="0" selected="selected">No Country Comparison</option>
                     </select>
-                    <select id="caseType">
-                        <option value="1">Daily Cases</option>
-                        <option value="2" selected="selected">Total Cases</option>
+                    <select id="vaccineType">
+                        <option value="1">Daily Vaccination</option>
+                        <option value="2">Single vs Double Dose</option>
+                        <option value="3" selected="selected">Total Vaccination</option>
                     </select>
-                    <select id="chartTimeCases">
+                    <select id="chartTimeVaccines">
                         <option value="1">1 week</option>
                         <option value="2">2 weeks</option>
                         <option value="3">30 days</option>
@@ -68,84 +68,61 @@
                     </select>
                 </div>
                 <br /><br />
-                <div id="chart_div_cases"></div>
-            </div>
-            <div class="chartDeaths">
-                <div class="chartDeathsHeading">
-                    <i class="fa fa-ambulance" style="font-size: 24px; color: #b52a0e"></i>&nbsp;&nbsp;
-                    Deaths &nbsp;&nbsp;
-                    <select id="deathsCountry1">
-                    </select>
-                    <select id="deathsCountry2">
-                        <option value="0" selected="selected">No Country Comparison</option>
-                    </select>
-                    <select id="deathType">
-                        <option value="1">Daily Deaths</option>
-                        <option value="2" selected="selected">Total Deaths</option>
-                    </select>
-                    <select id="chartTimeDeaths">
-                        <option value="1">1 week</option>
-                        <option value="2">2 weeks</option>
-                        <option value="3">30 days</option>
-                        <option value="4" selected="selected">All time</option>
-                    </select>
-                </div>
-                <br /><br />
-                <div id="chart_div_deaths"></div>
+                <div id="chart_div_vaccines"></div>
             </div>
         </div>
     </div>
-    <div class="casesOverview">
-        <div class="casesHeading">
-            <i class='far fa-file-alt' style='font-size: 24px; color: #b52a0e'></i>&nbsp;&nbsp;
-            COVID-19 Cases Overview&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="vaccinesOverview">
+        <div class="vaccinesHeading">
+            <i class='fas fa-syringe' style='font-size: 24px; color: #337d14'></i>&nbsp;&nbsp;
+            Vaccination Overview&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="text" onkeyup="searchCountry()" placeholder="India.." id="countrySearch" />&nbsp;&nbsp;
-            <i class='fas fa-search' style='font-size: 24px; color: #b52a0e'></i>
+            <i class='fas fa-search' style='font-size: 24px; color: #337d14'></i>
         </div>
         <hr style="border-width: thick; margin: 10px 0px 10px 0px" />
         <div class="locationOverview">
-            <table id="table" class="tableCases" style="width: 100%">
-                <tr class="topRow" style="position:static">
+            <table id="table" class="tableVac" style="width: 100%">
+                <tr class="topRowVac" style="position:static">
                     <th>
                         Country
                     </th>
                     <th>
-                        Total Cases
+                        Total Vaccination <br />
                         <button onclick="sortTable(1, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(1, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Total Deaths
+                        Total Vaccination/100 <br />
                         <button onclick="sortTable(2, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(2, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Daily Cases
+                        First Dose <br />
                         <button onclick="sortTable(3, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(3, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Daily Deaths
+                        First Dose/100 <br />
                         <button onclick="sortTable(4, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(4, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Weekly Cases
+                        Fully Vaccinated <br />
                         <button onclick="sortTable(5, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(5, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Weekly Deaths
+                        Fully Vaccinated/100 <br />
                         <button onclick="sortTable(6, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(6, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Bi-weekly Cases
+                        Daily Vaccination <br />
                         <button onclick="sortTable(7, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(7, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
                     <th>
-                        Bi-weekly Deaths
+                        Daily Vaccination/mil <br />
                         <button onclick="sortTable(8, 'U')"><i style='font-size:13px' class='fas'>&#xf160;</i></button>
                         <button onclick="sortTable(8, 'D')"><i style='font-size:13px' class='fas'>&#xf884;</i></button>
                     </th>
@@ -153,7 +130,7 @@
             </table>
         </div>
     </div>
-    <script src="js/stats.js" asp-append-version="true"></script>
+    <script src="js/vaccine.js" asp-append-version="true"></script>
     <script type="text/javascript">
         getItems();
     </script>
