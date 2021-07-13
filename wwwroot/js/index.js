@@ -49,44 +49,44 @@ function PopulateGridData(data) {
     const countryName = document.getElementById("country");
     const statsDivs = document.getElementsByClassName("stat");
     countryName.innerHTML = data[0].countryName;
-    statsDivs[0].innerHTML = data[0].totalCases;
-    statsDivs[1].innerHTML = data[0].totalDeaths;
-    statsDivs[2].innerHTML = data[0].dailyCases;
-    statsDivs[3].innerHTML = data[0].dailyDeaths;
-    statsDivs[4].innerHTML = data[0].weeklyCases;
-    statsDivs[5].innerHTML = data[0].weeklyDeaths;
-    statsDivs[6].innerHTML = data[0].biweeklyCases;
-    statsDivs[7].innerHTML = data[0].biweeklyDeaths;
-    statsDivs[8].innerHTML = data[1].totalCases;
-    statsDivs[9].innerHTML = data[1].totalDeaths;
-    statsDivs[10].innerHTML = data[1].dailyCases;
-    statsDivs[11].innerHTML = data[1].dailyDeaths;
-    statsDivs[12].innerHTML = data[1].weeklyCases;
-    statsDivs[13].innerHTML = data[1].weeklyDeaths;
-    statsDivs[14].innerHTML = data[1].biweeklyCases;
-    statsDivs[15].innerHTML = data[1].biweeklyDeaths;
+    statsDivs[0].innerHTML = data[0].totalCases != 0 ? data[0].totalCases : "Data is yet to be updated";
+    statsDivs[1].innerHTML = data[0].totalDeaths != 0 ? data[0].totalDeaths : "Data is yet to be updated";
+    statsDivs[2].innerHTML = data[0].dailyCases != 0 ? data[0].dailyCases : "Data is yet to be updated";
+    statsDivs[3].innerHTML = data[0].dailyDeaths != 0 ? data[0].dailyDeaths : "Data is yet to be updated";
+    statsDivs[4].innerHTML = data[0].weeklyCases != 0 ? data[0].weeklyCases : "Data is yet to be updated";
+    statsDivs[5].innerHTML = data[0].weeklyDeaths != 0 ? data[0].weeklyDeaths : "Data is yet to be updated";
+    statsDivs[6].innerHTML = data[0].biweeklyCases != 0 ? data[0].biweeklyCases : "Data is yet to be updated";
+    statsDivs[7].innerHTML = data[0].biweeklyDeaths != 0 ? data[0].biweeklyDeaths : "Data is yet to be updated";
+    statsDivs[8].innerHTML = data[1].totalCases != 0 ? data[1].totalCases : "Data is yet to be updated";
+    statsDivs[9].innerHTML = data[1].totalDeaths != 0 ? data[1].totalDeaths : "Data is yet to be updated";
+    statsDivs[10].innerHTML = data[1].dailyCases != 0 ? data[1].dailyCases : "Data is yet to be updated";
+    statsDivs[11].innerHTML = data[1].dailyDeaths != 0 ? data[1].dailyDeaths : "Data is yet to be updated";
+    statsDivs[12].innerHTML = data[1].weeklyCases != 0 ? data[1].weeklyCases : "Data is yet to be updated";
+    statsDivs[13].innerHTML = data[1].weeklyDeaths != 0 ? data[1].weeklyDeaths : "Data is yet to be updated";
+    statsDivs[14].innerHTML = data[1].biweeklyCases != 0 ? data[1].biweeklyCases : "Data is yet to be updated";
+    statsDivs[15].innerHTML = data[1].biweeklyDeaths != 0 ? data[1].biweeklyDeaths : "Data is yet to be updated";
 }
 
 function PopulateVacGridData(data) {
     const countryName = document.getElementById("country");
     const statsDivs = document.getElementsByClassName("vacStat");
     countryName.innerHTML = data[0].countryName;
-    statsDivs[0].innerHTML = data[0].totalVaccinations;
-    statsDivs[1].innerHTML = data[0].totalVaccinationPerHun;
-    statsDivs[2].innerHTML = data[0].peopleVaccinated;
-    statsDivs[3].innerHTML = data[0].peopleVaccinatedPerHun;
-    statsDivs[4].innerHTML = data[0].peopleFullyVaccinated;
-    statsDivs[5].innerHTML = data[0].peopleFullyVaccinatedPerHun;
-    statsDivs[6].innerHTML = data[0].dailyVaccinations;
-    statsDivs[7].innerHTML = data[0].dailyVaccinationsPerMillion;
-    statsDivs[8].innerHTML = data[1].totalVaccinations;
-    statsDivs[9].innerHTML = data[1].totalVaccinationPerHun;
-    statsDivs[10].innerHTML = data[1].peopleVaccinated;
-    statsDivs[11].innerHTML = data[1].peopleVaccinatedPerHun;
-    statsDivs[12].innerHTML = data[1].peopleFullyVaccinated;
-    statsDivs[13].innerHTML = data[1].peopleFullyVaccinatedPerHun;
-    statsDivs[14].innerHTML = data[1].dailyVaccinations;
-    statsDivs[15].innerHTML = data[1].dailyVaccinationsPerMillion;
+    statsDivs[0].innerHTML = data[0].totalVaccinations != 0 ? data[0].totalVaccinations : "Data is yet to be updated";
+    statsDivs[1].innerHTML = data[0].totalVaccinationPerHun != 0 ? data[0].totalVaccinationPerHun : "Data is yet to be updated";
+    statsDivs[2].innerHTML = data[0].peopleVaccinated != 0 ? data[0].peopleVaccinated : "Data is yet to be updated";
+    statsDivs[3].innerHTML = data[0].peopleVaccinatedPerHun != 0 ? data[0].peopleVaccinatedPerHun : "Data is yet to be updated";
+    statsDivs[4].innerHTML = data[0].peopleFullyVaccinated != 0 ? data[0].peopleFullyVaccinated : "Data is yet to be updated";
+    statsDivs[5].innerHTML = data[0].peopleFullyVaccinatedPerHun != 0 ? data[0].peopleFullyVaccinatedPerHun : "Data is yet to be updated";
+    statsDivs[6].innerHTML = data[0].dailyVaccinations != 0 ? data[0].dailyVaccinations : "Data is yet to be updated";
+    statsDivs[7].innerHTML = data[0].dailyVaccinationsPerMillion != 0 ? data[0].dailyVaccinationsPerMillion : "Data is yet to be updated";
+    statsDivs[8].innerHTML = data[1].totalVaccinations != 0 ? data[1].totalVaccinations : "Data is yet to be updated";
+    statsDivs[9].innerHTML = data[1].totalVaccinationPerHun != 0 ? data[1].totalVaccinationPerHun : "Data is yet to be updated";
+    statsDivs[10].innerHTML = data[1].peopleVaccinated != 0 ? data[1].peopleVaccinated : "Data is yet to be updated";
+    statsDivs[11].innerHTML = data[1].peopleVaccinatedPerHun != 0 ? data[1].peopleVaccinatedPerHun : "Data is yet to be updated";
+    statsDivs[12].innerHTML = data[1].peopleFullyVaccinated != 0 ? data[1].peopleFullyVaccinated : "Data is yet to be updated";
+    statsDivs[13].innerHTML = data[1].peopleFullyVaccinatedPerHun != 0 ? data[1].peopleFullyVaccinatedPerHun : "Data is yet to be updated";
+    statsDivs[14].innerHTML = data[1].dailyVaccinations != 0 ? data[1].dailyVaccinations : "Data is yet to be updated";
+    statsDivs[15].innerHTML = data[1].dailyVaccinationsPerMillion != 0 ? data[1].dailyVaccinationsPerMillion : "Data is yet to be updated";
 }
 
 function PopulateNewsCard(data, place) {
