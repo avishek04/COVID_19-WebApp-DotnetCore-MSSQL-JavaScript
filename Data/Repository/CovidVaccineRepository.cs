@@ -37,7 +37,7 @@ namespace COVID_19.Data.Repository
             List<VaccineGridDataViewModel> vaccineGridData = new List<VaccineGridDataViewModel>();
             try
             {
-                UpdateAllVaccineData();
+                //UpdateAllVaccineData();
 
                 var allCovidVaccineData = AllCovidVaccineData.ToList();
                 var latestReportDate = AllCovidVaccineData.Select(x => x.vaccine_report_date).Max(date => date);

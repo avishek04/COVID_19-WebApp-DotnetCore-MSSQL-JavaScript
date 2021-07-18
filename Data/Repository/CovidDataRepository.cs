@@ -38,7 +38,7 @@ namespace COVID_19.Data.Repository
             List<CovidGridDataViewModel> covidGridData = new List<CovidGridDataViewModel>();
             try
             {
-                UpdateAllCovidData();
+                //UpdateAllCovidData();
 
                 var allCovidData = AllCountryCovidData.ToList();
                 var latestReportDate = allCovidData.Select(x => x.report_date).Max(date => date);
