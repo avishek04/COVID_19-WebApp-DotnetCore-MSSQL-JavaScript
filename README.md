@@ -1,5 +1,31 @@
 # COVID_19-WebApp-DotnetCore-MSSQL-JavaScript
 
+## Technical Specifications
+This project implements an N-tier architecture, built upon the Model-View-Controller (MVC) architecture. However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
+### Presentation Layer
+Static Files: HTML, CSS, and JavaScript files
+### Application Layer
+Model Layer: Stores the class structure and business logic  
+Controller Layer: Serves the API requests that comes from the client side, apply some business logic and updates the Model.
+### Data Access Layer (DAL)
+Entity Framework: Utilizes DBContext to apply LINQ queries to the data received from the SQL database  
+Data Exchange: Responsible for CRUD operations
+### API Client Layer
+Third-Party API Integration: Retrieves data from external API services  
+Data Forwarding: Passes retrieved data to the DAL for processing and updating the databases
+
+## Tech Stack
+* HTML
+* CSS
+* JavaScript
+* REST APIs
+* C#
+* .NETCORE
+* Entity Framework
+* LINQ
+* MS-SQL
+* Microsoft Azure  
+
 ## COVID-19 Web Application Features
 Our web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally. The application offers the following features:
 
