@@ -2,7 +2,7 @@
 This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.
 
 ## Video Walkthrough
-
+![](untitled.gif)
 
 ## Technical Specifications
 This project implements an N-tier architecture, built upon the Model-View-Controller (MVC) architecture. However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
