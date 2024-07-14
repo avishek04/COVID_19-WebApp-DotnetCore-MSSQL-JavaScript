@@ -74,4 +74,7 @@ The application offers the following features:
 
 ### About
 
-<img width="800" alt="Screenshot 2021-11-24 at 10 44 56 PM" src="https://user-images.githubusercontent.com/48808040/143285730-dc3a287b-e0c4-4f94-b9b1-2972c4fc1df4.png">
+<img width="800" alt="Screenshot 2021-11-24 at 10 44 56 PM" src="https://user-images.githubusercontent.com/48808040/143285730-dc3a287b-e0c4-4f94-b9b1-2972c4fc1df4.png">  
+
+
+Thanks for visiting! Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/avishekchoudhury/)
