@@ -1,10 +1,13 @@
 # COVID_19-WebApp-DotnetCore-MSSQL-JavaScript
 This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.  
 Project Owner: Avishek Choudhury
+
 ## Demo
-https://youtu.be/SIGwO2x8p0E
+https://github.com/user-attachments/assets/49c42c3a-df38-427d-b8ec-aaf8dacee3eb
+
 ## Technical Specifications
 This project implements an N-tier architecture, built upon the Model-View-Controller (MVC) architecture. However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
+
 ### Presentation Layer
 Static Files: HTML, CSS, and JavaScript files
 ### Application Layer
@@ -36,14 +39,18 @@ The application offers the following features:
 * Latest Tweets: Top Twitter handles related to COVID-19
 * Global News: Updates from top publications worldwide
 * Live Case Updates: Daily case numbers from your location and globally
+  
 ### Cases Analytics
 * Graphical Insights: New cases and deaths data from all countries and globally
 * Country Comparison: Compare two countries' performance in controlling the pandemic
 * Global Case List: Comprehensive list of case data from all countries
+  
 ### Vaccine Analytics
 * Vaccination Data: Similar format to Cases page, but for vaccination data
+  
 ### News
 * Latest News: Updates from The New York Times and top Twitter handles related to COVID-19
+  
 ### Survey
 * Work from Home Survey: Share your opinion and see live results and opinions from others
 
