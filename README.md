@@ -1,5 +1,6 @@
 # COVID_19-WebApp-DotnetCore-MSSQL-JavaScript
-This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.
+This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.  
+Project Owner: Avishek Choudhury
 ## Demo
 https://youtu.be/SIGwO2x8p0E
 ## Technical Specifications
