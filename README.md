@@ -1,5 +1,7 @@
 # COVID_19-WebApp-DotnetCore-MSSQL-JavaScript
 This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.
+## Demo
+https://youtu.be/SIGwO2x8p0E
 ## Technical Specifications
 This project implements an N-tier architecture, built upon the Model-View-Controller (MVC) architecture. However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
 ### Presentation Layer
@@ -43,10 +45,6 @@ The application offers the following features:
 * Latest News: Updates from The New York Times and top Twitter handles related to COVID-19
 ### Survey
 * Work from Home Survey: Share your opinion and see live results and opinions from others
-
-
-### Demo
-https://youtu.be/SIGwO2x8p0E
 
 ### Home Page
 
