@@ -5,8 +5,8 @@ Project Owner: Avishek Choudhury
 ## Demo
 https://github.com/user-attachments/assets/49c42c3a-df38-427d-b8ec-aaf8dacee3eb
 
-## Implmentation
-This project implements an N-tier architecture, built upon the Model-View-Controller (MVC) architecture. However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
+## Technical Details
+This project implements an N-tier architecture, built upon the Model-View-Controller (MVC). However, instead of traditional Views, static HTML, CSS, and JavaScript files is used in the wwwroot directory. The architecture consists of the following layers:
 
 ### Presentation Layer
 Static Files: HTML, CSS, and JavaScript files
