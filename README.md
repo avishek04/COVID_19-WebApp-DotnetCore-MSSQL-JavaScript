@@ -1,5 +1,6 @@
 # COVID_19-WebApp-DotnetCore-MSSQL-JavaScript
 This web application, developed during the COVID-19 pandemic, aims to keep the community informed about the impact and changes happening globally.  
+  
 Project Owner: Avishek Choudhury
 
 ## Demo
@@ -32,7 +33,7 @@ Data Forwarding: Passes retrieved data to the DAL for processing and updating th
 * MS-SQL
 * Microsoft Azure  
 
-## COVID-19 Web Application Features
+## Key Features
 The application offers the following features:
 
 ### Home Page
@@ -54,6 +55,7 @@ The application offers the following features:
 ### Survey
 * Work from Home Survey: Share your opinion and see live results and opinions from others
 
+## Screenshots
 ### Home Page
 
 <img width="800" alt="Screenshot 2021-11-24 at 10 40 28 PM" src="https://user-images.githubusercontent.com/48808040/143285245-043383ed-3b2c-4122-a020-72ff3489fc15.png">
@@ -84,6 +86,6 @@ The application offers the following features:
 <img width="800" alt="Screenshot 2021-11-24 at 10 44 56 PM" src="https://user-images.githubusercontent.com/48808040/143285730-dc3a287b-e0c4-4f94-b9b1-2972c4fc1df4.png">  
 
 
-Thanks for visiting! 
+Thank you for visiting! 
 
 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/avishekchoudhury/).
